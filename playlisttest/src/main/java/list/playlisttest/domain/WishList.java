@@ -28,4 +28,6 @@ public class WishList {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pl_id")
 	private PlayList playList;
+
+
 }
