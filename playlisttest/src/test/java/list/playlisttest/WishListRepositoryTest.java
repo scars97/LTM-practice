@@ -20,7 +20,7 @@ import list.playlisttest.repository.WishListRepository;
 @SpringBootTest
 @Transactional
 @Rollback(false)
-public class WishListRepositoryTest {
+public class WishListRepositoryTest {// 수정 필요
 
 	@Autowired MemberRepository memberRepository;
 	@Autowired PlayListRepository playListRepository;

@@ -1,5 +1,7 @@
 package list.playlisttest.service;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +26,11 @@ public class MemberService {
 		if(findMembers != null) {
 			throw new IllegalStateException("이미 있는 회원임.");
 		}	
+	}
+	
+	public Member findOne(Long memberId) {
+		return memberRepository.findById(memberId)
+				.orElseThrow(EntityNotFoundException::new);
 	}
 	
 }

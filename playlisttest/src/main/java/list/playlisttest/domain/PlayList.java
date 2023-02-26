@@ -1,5 +1,9 @@
 package list.playlisttest.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.Getter;
@@ -31,7 +36,12 @@ public class PlayList {
 	@OneToOne(mappedBy = "playList",fetch = FetchType.LAZY)
 	private WishList wishList;
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "m_id")
-//	private Member member;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "member_id")
+	private Member member;
+	
+	@OneToMany(mappedBy = "playList", cascade = CascadeType.REMOVE)
+	private List<PlSong> plSongs = new ArrayList<>();
+	
+	
 }

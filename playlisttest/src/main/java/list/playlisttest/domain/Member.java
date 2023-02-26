@@ -19,7 +19,7 @@ import lombok.Setter;
 public class Member {
 
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "m_id")
+	@Column(name = "member_id")
 	private Long id;
 	
 	@Column(name = "user_id")
@@ -30,6 +30,6 @@ public class Member {
 	@OneToMany(mappedBy = "member")
 	private List<WishList> wishList = new ArrayList<>();
 	
-//	@OneToMany(mappedBy = "member")
-//	private List<PlayList> playList = new ArrayList<>();
+	@OneToMany(mappedBy = "member")
+	private List<PlayList> playList = new ArrayList<>();
 }

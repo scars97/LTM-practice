@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import list.playlisttest.domain.PlayList;
 import list.playlisttest.repository.PlayListRepository;
-import list.playlisttest.service.PlayListService;
+import list.playlisttest.service.PlSongService;
 
 @SpringBootTest
 @Transactional
@@ -22,7 +22,7 @@ public class PlayListServiceTest {
 	PlayListRepository playListRepository;
 	
 	@Autowired
-	PlayListService playListService;
+	PlSongService playListService;
 	
 	@Test
 	public void 리스트_만들기() {
@@ -32,7 +32,7 @@ public class PlayListServiceTest {
 		playList.setDiscription("퇴근할때 듣는 노래");
 		
 		//when
-		PlayList saveLists = playListService.saveList(playList);
+		PlayList saveLists = playListRepository.save(playList);
 		
 		//then
 		assertEquals(playList.getId(), saveLists.getId());
