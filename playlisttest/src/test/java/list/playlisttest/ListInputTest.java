@@ -44,7 +44,7 @@ public class ListInputTest {//회원,플레이리스트,노래 데이터 종합 
 		//then
 		PlSong getPlSong = plSongRepository.findById(plSongId)
 				.orElseThrow(EntityNotFoundException::new);	
-			
+		
 		//결국엔 playList의 pl_id와 Song의 song_id가 pl_song과 매치되어야함.
 		
 		//song_id가 같은지
