@@ -1,5 +1,6 @@
 package list.playlisttest.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,10 +17,8 @@ import lombok.Setter;
 @Setter
 public class PlSong {
 
-	@Id @GeneratedValue
-	@Column(name = "pl_song_id")
-	private Long id;
 	
+	@Id
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pl_id")
 	private PlayList playList;

@@ -25,7 +25,7 @@ public class PlSongService {
 	private final PlSongRepository plSongRepository;
 	
 	@Transactional
-	public Long plSong(Long plId,Long songId) {
+	public PlSong plSong(Long plId,Long songId) {
 		//엔티티 조회
 		Song song = songRepository.findById(songId)
 				.orElseThrow(EntityNotFoundException::new);
@@ -35,10 +35,12 @@ public class PlSongService {
 		//플레이리스트를 연결해주는 노래 저장 공간 생성
 		PlSong plSong = PlSong.createPlSong(playList,song);
 		
+		
+	
 		//저장
 		plSongRepository.save(plSong);
 		
-		return plSong.getId();
+		return plSong;
 		
 	}
 }

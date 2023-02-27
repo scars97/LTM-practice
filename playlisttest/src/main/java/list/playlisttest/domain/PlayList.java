@@ -40,8 +40,13 @@ public class PlayList {
 	@JoinColumn(name = "member_id")
 	private Member member;
 	
-	@OneToMany(mappedBy = "playList", cascade = CascadeType.REMOVE,orphanRemoval=true)
+	@OneToMany(mappedBy = "playList", cascade = CascadeType.REMOVE)
 	private List<PlSong> plSongs = new ArrayList<>();
 	
 	
+	//==연관관계 메서드==//
+	public void addPlSongs(PlSong plSong) {
+		this.getPlSongs().add(plSong);
+		plSong.setPlayList(this);
+	}
 }

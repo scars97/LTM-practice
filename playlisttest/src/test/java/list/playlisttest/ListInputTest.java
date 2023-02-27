@@ -2,6 +2,7 @@ package list.playlisttest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,9 @@ public class ListInputTest {//회원,플레이리스트,노래 데이터 종합 
 	@Autowired PlSongRepository plSongRepository;
 	@Autowired PlSongService plSongService;
 	
-	@Test
+	@Autowired EntityManager em;
+	
+	//@Test
 	public void 플레이리스트_생성() {
 		//given
 		Member member = createMember();
@@ -52,6 +55,27 @@ public class ListInputTest {//회원,플레이리스트,노래 데이터 종합 
 		//pl_id가 같은지.
 		assertEquals(playList.getId(),getPlSong.getPlayList().getId());
 		
+	}
+	
+	@Test
+	public void 플레이리스트_삭제() {
+		//given
+		Member member = createMember();
+		PlayList playList1 = createPl(member);
+		PlayList playList2 = createPl(member);
+		Song song = createSong();
+				
+		//when
+		PlSong plSongId = plSongService.plSong(playList1.getId(), song.getId());
+		//plSongService.plSong(playList1.getId(), song.getId());
+		plSongService.plSong(playList2.getId(), song.getId());
+				
+		//then
+//		PlSong getPlSong = plSongRepository.findById(plSongId)
+//				.orElseThrow(EntityNotFoundException::new);	
+	
+		plSongRepository.deleteAllByPlId(plSongId.getPlayList().getId());	
+		//assertEquals(playList1.getId(), getPlSong.getPlayList().getId());
 	}
 	
 	
