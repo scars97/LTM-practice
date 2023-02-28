@@ -1,5 +1,7 @@
 package list.playlisttest.service;
 
+import java.util.List;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
@@ -25,22 +27,26 @@ public class PlSongService {
 	private final PlSongRepository plSongRepository;
 	
 	@Transactional
-	public Long plSong(Long plId,Long songId) {
+	public Long plSong(Long plId,String songTitle,String singer) {
 		//엔티티 조회
-		Song song = songRepository.findById(songId)
-				.orElseThrow(EntityNotFoundException::new);
 		PlayList playList = playListRepository.findById(plId)
 				.orElseThrow(EntityNotFoundException::new);
 
 		//플레이리스트를 연결해주는 노래 저장 공간 생성
-		PlSong plSong = PlSong.createPlSong(playList,song);
+		PlSong plSong = PlSong.createPlSong(playList,songTitle,singer);
 		
-		
-	
 		//저장
 		plSongRepository.save(plSong);
 		
 		return plSong.getId();
-		
+	}
+	
+	public List<PlSong> findPlSongs(Long plId){
+		return plSongRepository.findSongList(plId);
+	}
+	
+	public PlSong findOne(Long plSongId) {
+		return plSongRepository.findById(plSongId)
+				.orElseThrow(EntityNotFoundException::new);
 	}
 }

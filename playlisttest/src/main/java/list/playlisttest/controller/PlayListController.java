@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import list.playlisttest.domain.Member;
 import list.playlisttest.domain.PlSong;
 import list.playlisttest.domain.PlayList;
+import list.playlisttest.repository.PlSongRepository;
 import list.playlisttest.service.MemberService;
+import list.playlisttest.service.PlSongService;
 import list.playlisttest.service.PlayListService;
 import list.playlisttest.service.SongService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +28,9 @@ import lombok.RequiredArgsConstructor;
 public class PlayListController {
 
 	private final PlayListService playListService;
+	private final PlSongService plSongService;
 	private final MemberService memberService;
+	private final PlSongRepository plSongRepository;
 	//private final SongService songService;
 	
 	@GetMapping("/playlist/new")
@@ -71,6 +76,16 @@ public class PlayListController {
 	@GetMapping("/playlist/{id}/song")
 	public String plSongForm(@PathVariable("id") Long plId, Model model) {
 		
-		List<PlSong> songs =
+		List<PlSong> songs = plSongService.findPlSongs(plId);
+		
+		model.addAttribute("songs",songs);
+		return "PlayListSongs";
+	}
+	
+	@PostMapping("/song/{id}/remove")//수정필요
+	public String removeSong(@PathVariable("id") Long plSongId) {
+		PlSong plSong = plSongService.findOne(plSongId);
+		plSongRepository.delete(plSong);
+		return "redirect:/PlayListSongs";
 	}
 }

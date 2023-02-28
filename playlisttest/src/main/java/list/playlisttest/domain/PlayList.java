@@ -40,7 +40,7 @@ public class PlayList {
 	@JoinColumn(name = "member_id")
 	private Member member;
 	
-	@OneToMany(mappedBy = "playList", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "playList", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<PlSong> plSongs = new ArrayList<>();
 	
 	
