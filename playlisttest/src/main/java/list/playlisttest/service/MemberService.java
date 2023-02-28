@@ -1,11 +1,14 @@
 package list.playlisttest.service;
 
+import java.util.List;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import list.playlisttest.domain.Member;
+import list.playlisttest.domain.PlayList;
 import list.playlisttest.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -31,6 +34,10 @@ public class MemberService {
 	public Member findOne(Long memberId) {
 		return memberRepository.findById(memberId)
 				.orElseThrow(EntityNotFoundException::new);
+	}
+	
+	public List<Member> findMembers(){
+		return memberRepository.findAll();
 	}
 	
 }

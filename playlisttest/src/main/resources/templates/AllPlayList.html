@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>제목</th>
+				<th>설명</th>
+				<th>회원아이디</th>
+				<th></th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="list : ${lists}">
+				<td th:text="${list.id}"></td>
+				<td th:text="${list.title}"></td>
+				<td th:text="${list.discription}"></td>
+				<td></td>
+				<td><a href="#" th:href="@{/playlist/{id}/song (id=${list.id})}"
+						 role="button">노래 보기</a></td>
+				
+			</tr>
+		</tbody>
+		
+		
+	</table>
+
+</body>
+</html>

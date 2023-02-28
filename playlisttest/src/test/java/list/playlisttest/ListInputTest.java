@@ -2,6 +2,8 @@ package list.playlisttest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 
@@ -32,7 +34,7 @@ public class ListInputTest {//회원,플레이리스트,노래 데이터 종합 
 	@Autowired PlSongRepository plSongRepository;
 	@Autowired PlSongService plSongService;
 	
-	@Autowired EntityManager em;
+	//@Autowired EntityManager em;
 	
 	//@Test
 	public void 플레이리스트_생성() {
@@ -66,16 +68,25 @@ public class ListInputTest {//회원,플레이리스트,노래 데이터 종합 
 		Song song = createSong();
 				
 		//when
-		PlSong plSongId = plSongService.plSong(playList1.getId(), song.getId());
-		//plSongService.plSong(playList1.getId(), song.getId());
+		Long plSongId = plSongService.plSong(playList1.getId(), song.getId());
+		Long plSongId2 = plSongService.plSong(playList1.getId(), song.getId());
 		plSongService.plSong(playList2.getId(), song.getId());
 				
 		//then
-//		PlSong getPlSong = plSongRepository.findById(plSongId)
-//				.orElseThrow(EntityNotFoundException::new);	
+		PlSong getPlSong = plSongRepository.findById(plSongId)
+				.orElseThrow(EntityNotFoundException::new);	
+		PlSong getPlSong2 = plSongRepository.findById(plSongId2)
+				.orElseThrow(EntityNotFoundException::new);	
 	
-		plSongRepository.deleteAllByPlId(plSongId.getPlayList().getId());	
-		//assertEquals(playList1.getId(), getPlSong.getPlayList().getId());
+		playList1.addPlSongs(getPlSong);
+		playList1.addPlSongs(getPlSong2);
+		
+		playListRepository.delete(playList1);
+//		em.remove(playList1);
+//		
+//		em.flush();
+//		em.clear();
+		
 	}
 	
 	

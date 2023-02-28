@@ -12,10 +12,14 @@ import list.playlisttest.domain.PlSong;
 import list.playlisttest.domain.PlayList;
 
 
-public interface PlSongRepository extends JpaRepository<PlSong, PlayList>{
+
+public interface PlSongRepository extends JpaRepository<PlSong,Long>{
 
 	@Transactional
 	@Modifying
-	@Query("delete from PlSong ps where ps.playList.id = :fkPlId")
-	void deleteAllByPlId(@Param("fkPlId") Long fkPlId);
+	@Query("select pls.song_id, s.song_title, s.singer"
+			+ " from PlSong pls"
+			+ " join pls.PlayList pl join Song s"
+			+ " on pls.pl_id=pl.pl_id")
+	public List<PlSong> findSongList(@Param("plId") Long plId);
 }
