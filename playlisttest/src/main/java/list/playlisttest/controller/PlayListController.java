@@ -1,6 +1,5 @@
 package list.playlisttest.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -9,7 +8,6 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +17,7 @@ import list.playlisttest.domain.Member;
 import list.playlisttest.domain.PlSong;
 import list.playlisttest.domain.PlayList;
 import list.playlisttest.domain.Song;
+import list.playlisttest.repository.InputSong;
 import list.playlisttest.repository.PlSongRepository;
 import list.playlisttest.service.MemberService;
 import list.playlisttest.service.PlSongService;
@@ -110,19 +109,20 @@ public class PlayListController {
 		return "SongList";
 	}
 		
-	@PostMapping("/inputsong/{songTitle}/{singer}")
-	public String inputSongDetail(@PathVariable("songTitle") String songTitle,@PathVariable("singer") String singer,Model model) {
+	@GetMapping("/inputsong/{songtitle}/{singer}")
+	public String inputSongDetail(@PathVariable("songtitle") String songTitle,
+								  @PathVariable("singer") String singer,
+								  Model model) {
 		//회원 id와 연결된 플레이리스트 찾아오기 - 쿼리문 필요
 		//'리스트에 담기'했을 때, 그 회원의 플레이리스트들을 가져와야 함.
 		//List<PlayList> memberPl = playListService.findMemberPl(회원id);
 		//model.addattribute("memberPl",memberPl);
 		List<PlayList> lists = playListService.findPl();
 		
-		List<String> songInfo = new ArrayList<>();
-		songInfo.add(songTitle);
-		songInfo.add(singer);
+		
 		model.addAttribute("lists",lists); //회원의 플레이리스트 출력
-		model.addAttribute("songInfo",songInfo);
+		model.addAttribute("title",songTitle);
+		model.addAttribute("singer",singer);
 		return "InputSong";
 		
 	}
@@ -130,15 +130,11 @@ public class PlayListController {
 	
 	@PostMapping("/inputsong")
 	public String inputSong(@RequestParam("plId") Long plId,
-							@RequestParam("songTitle") String songTitle,
+							@RequestParam("title") String songTitle,
 							@RequestParam("singer") String singer) {
-		
-		PlayList playList = playListService.findOne(plId);//영속성 부여를 위한 해당 리스트 가져오기
-		Long plSongId = plSongService.plSong(plId, songTitle, singer);//담은 노래의 id
-		PlSong plSong = plSongRepository.findById(plSongId)
-				.orElseThrow(EntityNotFoundException::new);
-		
-		playList.addPlSongs(plSong);
+			
+		plSongService.plSong(plId, songTitle, singer);//담은 노래의 id
+
 		return "SongList";
 	}
 }

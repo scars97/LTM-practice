@@ -18,8 +18,9 @@
 				<td th:text="${song.songTitle}"></td>
 				<td th:text="${song.singer}"></td>
 				<td><a href="#"
-					th:href="'javascript:input('+${song.songTitle}+','+${song.singer}+')'">노래
+					th:href="@{/inputsong/{songtitle}/{singer}(songtitle=${song.songTitle},singer=${song.singer})}">노래
 						넣기</a></td>
+						
 
 
 			</tr>
@@ -29,14 +30,5 @@
 	</table>
 
 </body>
-<script>
-	function remove(songTitle,singer) {
-		var form = document.createElement("form");
-		form.setAttribute("method", "post");
-		form.setAttribute("action", "/inputsong/"+ songTitle +"/" + singer);
-		
-		document.body.appendChild(form);
-		form.submit();
-	}
-</script>
+
 </html>

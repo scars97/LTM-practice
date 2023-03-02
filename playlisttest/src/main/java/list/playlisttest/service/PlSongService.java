@@ -27,7 +27,7 @@ public class PlSongService {
 	private final PlSongRepository plSongRepository;
 	
 	@Transactional
-	public Long plSong(Long plId,String songTitle,String singer) {
+	public PlSong plSong(Long plId,String songTitle,String singer) {
 		//엔티티 조회
 		PlayList playList = playListRepository.findById(plId)
 				.orElseThrow(EntityNotFoundException::new);
@@ -36,9 +36,9 @@ public class PlSongService {
 		PlSong plSong = PlSong.createPlSong(playList,songTitle,singer);
 		
 		//저장
-		plSongRepository.save(plSong);
+		playList.addPlSongs(plSong);
 		
-		return plSong.getId();
+		return plSongRepository.save(plSong);
 	}
 	
 	public List<PlSong> findPlSongs(Long plId){

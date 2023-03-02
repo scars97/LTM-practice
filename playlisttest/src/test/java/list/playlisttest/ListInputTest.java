@@ -72,18 +72,15 @@ public class ListInputTest {// 회원,플레이리스트,노래 데이터 종합
 		Song song = createSong();
 
 		// when
-		Long plSongId = plSongService.plSong(playList1.getId(), song.getSongTitle(),song.getSinger());
-		Long plSongId2 = plSongService.plSong(playList1.getId(), song.getSongTitle(),song.getSinger());
+		plSongService.plSong(playList1.getId(), song.getSongTitle(),song.getSinger());
+		plSongService.plSong(playList1.getId(), song.getSongTitle(),song.getSinger());
 		plSongService.plSong(playList2.getId(), song.getSongTitle(),song.getSinger());
 
 		// then
-		PlSong getPlSong = plSongRepository.findById(plSongId)
-				.orElseThrow(EntityNotFoundException::new);
-		PlSong getPlSong2 = plSongRepository.findById(plSongId2)
-				.orElseThrow(EntityNotFoundException::new);
-
-		playList1.addPlSongs(getPlSong);
-		playList1.addPlSongs(getPlSong2);
+//		PlSong getPlSong = plSongRepository.findById(plSongId)
+//				.orElseThrow(EntityNotFoundException::new);
+//		PlSong getPlSong2 = plSongRepository.findById(plSongId2)
+//				.orElseThrow(EntityNotFoundException::new);
 
 		playListRepository.delete(playList1);
 //		em.remove(playList1);

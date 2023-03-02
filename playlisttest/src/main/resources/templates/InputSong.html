@@ -3,14 +3,10 @@
 <head>
 </head>
 <body>
-
-	<form method="post" action="/inputsong" th:object="${songInfo}">
-	<input type="hidden" th:field="*{songInfo.songTitle}">
-	<input type="hidden" th:field="*{songInfo.singer}">
 		<table>
 			<thead>
 				<tr>
-					<th>리스트 Id</th>
+					<th>리스트Id</th>
 					<th>제목</th>
 
 				</tr>
@@ -18,16 +14,43 @@
 
 			<tbody>
 				<tr th:each="lists : ${lists}">
-					<td th:text="${lists.id}"></td>
+					<td th:text="${lists.id}" ></td>
 					<td th:text="${lists.title}"></td>
-					<td><button type="submit">노래 넣기</button></td>
+					<td><a href="#"
+					th:href="'javascript:input('+${lists.id}+')'">노래넣기</a></td>
 				</tr>
 			</tbody>
 
 
 		</table>
-	</form>
 
 </body>
+<script th:inline="javascript">
+/*<![CDATA[*/
+	function input(plId) {
+		var form = document.createElement("form");
+		form.setAttribute("method", "post");
+		form.setAttribute("action", "/inputsong");
+		var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", "plId");
+        hiddenField.setAttribute("value", plId);
+        form.appendChild(hiddenField);
+        var hiddenField2 = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", "title");
+        hiddenField.setAttribute("value", /*[[${title}]]*/);
+        form.appendChild(hiddenField2);
+        var hiddenField3 = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", "singer");
+        hiddenField.setAttribute("value", /*[[${singer}]]*/);
+        form.appendChild(hiddenField3);
+		
+		document.body.appendChild(form);
+		form.submit();
+	}
+/*]]>*/
+</script>
 
 </html>
