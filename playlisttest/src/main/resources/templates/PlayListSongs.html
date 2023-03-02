@@ -17,7 +17,8 @@
 				<td th:text="${song.id}"></td>
 				<td th:text="${song.songTitle}"></td>
 				<td th:text="${song.singer}"></td>
-				<td><a href="#" th:href="'javascript:remove('+${song.id}+')'">삭제</a></td>
+				<td th:text="${song.playList.id}"></td>
+				<td><a href="#" th:href="'javascript:remove('+${song.id}+','+${song.playList.id}+')'">삭제</a></td>
 				
 				
 			</tr>
@@ -28,13 +29,18 @@
 
 </body>
 <script>
-	function remove(id) {
+	function remove(plSongId,plId) {
 		var form = document.createElement("form");
 		form.setAttribute("method", "post");
-		form.setAttribute("action", "/song/" + id + "/remove");
+		form.setAttribute("action", "/playlist/"+ plId +"/song");
+		var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", "plSongId");
+        hiddenField.setAttribute("value", plSongId);
+        form.appendChild(hiddenField);
+		
 		document.body.appendChild(form);
 		form.submit();
-	
 	}
 </script>
 </html>

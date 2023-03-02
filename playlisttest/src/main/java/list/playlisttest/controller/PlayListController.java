@@ -33,6 +33,7 @@ public class PlayListController {
 	private final PlSongRepository plSongRepository;
 	//private final SongService songService;
 	
+	//플레이리스트 만들기
 	@GetMapping("/playlist/new")
 	public String createForm(Model model) {
 		//로그인된 회원 정보 가져오기.
@@ -51,6 +52,7 @@ public class PlayListController {
 			return "createPlForm";
 		}
 		
+		//Dto 생성 필요
 		PlayList playList = new PlayList();
 		playList.setTitle(form.getTitle());
 		playList.setDiscription(form.getDiscription());
@@ -61,6 +63,7 @@ public class PlayListController {
 		
 	}
 	
+	//전체 플레이리스트 조회
 	@GetMapping("/playlist/list")
 	public String showAll(Model model) {
 		
@@ -73,19 +76,22 @@ public class PlayListController {
 		return "AllPlayList";
 	}
 	
+	//플레이리스트 담긴 노래 조회
 	@GetMapping("/playlist/{id}/song")
 	public String plSongForm(@PathVariable("id") Long plId, Model model) {
-		
+		PlayList playList = playListService.findOne(plId);
 		List<PlSong> songs = plSongService.findPlSongs(plId);
 		
+		model.addAttribute("playlist",playList);
 		model.addAttribute("songs",songs);
 		return "PlayListSongs";
 	}
 	
-	@PostMapping("/song/{id}/remove")//수정필요
-	public String removeSong(@PathVariable("id") Long plSongId) {
+	//플레이리스트 노래 데이터 삭제
+	@PostMapping("/playlist/{plId}/song")
+	public String removeSong(@PathVariable("plId") Long plId,@RequestParam("plSongId") Long plSongId) {
 		PlSong plSong = plSongService.findOne(plSongId);
 		plSongRepository.delete(plSong);
-		return "redirect:/PlayListSongs";
+		return "redirect:/playlist/{plId}/song";
 	}
 }
