@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+	<form method="post" action="/inputsong" th:object="${songInfo}">
+	<input type="hidden" th:field="*{songInfo.songTitle}">
+	<input type="hidden" th:field="*{songInfo.singer}">
+		<table>
+			<thead>
+				<tr>
+					<th>리스트 Id</th>
+					<th>제목</th>
+
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="lists : ${lists}">
+					<td th:text="${lists.id}"></td>
+					<td th:text="${lists.title}"></td>
+					<td><button type="submit">노래 넣기</button></td>
+				</tr>
+			</tbody>
+
+
+		</table>
+	</form>
+
+</body>
+
+</html>

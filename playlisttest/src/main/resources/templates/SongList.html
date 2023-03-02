@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>아이디</th>
+				<th>제목</th>
+				<th>아티스트</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr th:each="song : ${songList}">
+				<td th:text="${song.id}"></td>
+				<td th:text="${song.songTitle}"></td>
+				<td th:text="${song.singer}"></td>
+				<td><a href="#"
+					th:href="'javascript:input('+${song.songTitle}+','+${song.singer}+')'">노래
+						넣기</a></td>
+
+
+			</tr>
+		</tbody>
+
+
+	</table>
+
+</body>
+<script>
+	function remove(songTitle,singer) {
+		var form = document.createElement("form");
+		form.setAttribute("method", "post");
+		form.setAttribute("action", "/inputsong/"+ songTitle +"/" + singer);
+		
+		document.body.appendChild(form);
+		form.submit();
+	}
+</script>
+</html>

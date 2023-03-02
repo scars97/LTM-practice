@@ -1,7 +1,9 @@
 package list.playlisttest.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import list.playlisttest.domain.Member;
 import list.playlisttest.domain.PlSong;
 import list.playlisttest.domain.PlayList;
+import list.playlisttest.domain.Song;
 import list.playlisttest.repository.PlSongRepository;
 import list.playlisttest.service.MemberService;
 import list.playlisttest.service.PlSongService;
@@ -31,7 +34,7 @@ public class PlayListController {
 	private final PlSongService plSongService;
 	private final MemberService memberService;
 	private final PlSongRepository plSongRepository;
-	//private final SongService songService;
+	private final SongService songService;
 	
 	//플레이리스트 만들기
 	@GetMapping("/playlist/new")
@@ -87,11 +90,55 @@ public class PlayListController {
 		return "PlayListSongs";
 	}
 	
-	//플레이리스트 노래 데이터 삭제
+	//플레이리스트 노래 삭제
 	@PostMapping("/playlist/{plId}/song")
-	public String removeSong(@PathVariable("plId") Long plId,@RequestParam("plSongId") Long plSongId) {
+	public String removeSong(@RequestParam("plSongId") Long plSongId) {
 		PlSong plSong = plSongService.findOne(plSongId);
 		plSongRepository.delete(plSong);
 		return "redirect:/playlist/{plId}/song";
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////
+	
+	@GetMapping("/song") //API관련 서비스 로직 구현 필요
+	public String songList(Model model) {
+		
+		List<Song> songList = songService.findSongs();
+		
+		model.addAttribute("songList",songList);
+		return "SongList";
+	}
+		
+	@PostMapping("/inputsong/{songTitle}/{singer}")
+	public String inputSongDetail(@PathVariable("songTitle") String songTitle,@PathVariable("singer") String singer,Model model) {
+		//회원 id와 연결된 플레이리스트 찾아오기 - 쿼리문 필요
+		//'리스트에 담기'했을 때, 그 회원의 플레이리스트들을 가져와야 함.
+		//List<PlayList> memberPl = playListService.findMemberPl(회원id);
+		//model.addattribute("memberPl",memberPl);
+		List<PlayList> lists = playListService.findPl();
+		
+		List<String> songInfo = new ArrayList<>();
+		songInfo.add(songTitle);
+		songInfo.add(singer);
+		model.addAttribute("lists",lists); //회원의 플레이리스트 출력
+		model.addAttribute("songInfo",songInfo);
+		return "InputSong";
+		
+	}
+	
+	
+	@PostMapping("/inputsong")
+	public String inputSong(@RequestParam("plId") Long plId,
+							@RequestParam("songTitle") String songTitle,
+							@RequestParam("singer") String singer) {
+		
+		PlayList playList = playListService.findOne(plId);//영속성 부여를 위한 해당 리스트 가져오기
+		Long plSongId = plSongService.plSong(plId, songTitle, singer);//담은 노래의 id
+		PlSong plSong = plSongRepository.findById(plSongId)
+				.orElseThrow(EntityNotFoundException::new);
+		
+		playList.addPlSongs(plSong);
+		return "SongList";
 	}
 }

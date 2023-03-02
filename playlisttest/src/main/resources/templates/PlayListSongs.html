@@ -3,6 +3,22 @@
 <head>
 </head>
 <body>
+<!-- 	<form th:object="${orderSearch}" class="form-inline">
+		<div class="form-group mb-2">
+			<input type="text" th:field="*{memberName}" class="form-control"
+				placeholder="회원명" />
+		</div>
+		<div class="form-group mx-sm-1 mb-2">
+			<select th:field="*{orderStatus}" class="form-control">
+				<option value="">주문상태</option>
+				<option
+					th:each="status : ${T(jpabook.jpashop.domain.OrderStatus).values()}"
+					th:value="${status}" th:text="${status}">option</option>
+			</select>
+		</div>
+		<button type="submit">검색</button>
+	</form> -->
+
 	<table>
 		<thead>
 			<tr>
@@ -11,20 +27,21 @@
 				<th>아티스트</th>
 			</tr>
 		</thead>
-		
+
 		<tbody>
 			<tr th:each="song : ${songs}">
 				<td th:text="${song.id}"></td>
 				<td th:text="${song.songTitle}"></td>
 				<td th:text="${song.singer}"></td>
 				<td th:text="${song.playList.id}"></td>
-				<td><a href="#" th:href="'javascript:remove('+${song.id}+','+${song.playList.id}+')'">삭제</a></td>
-				
-				
+				<td><a href="#"
+					th:href="'javascript:remove('+${song.id}+','+${song.playList.id}+')'">삭제</a></td>
+
+
 			</tr>
 		</tbody>
-		
-		
+
+
 	</table>
 
 </body>

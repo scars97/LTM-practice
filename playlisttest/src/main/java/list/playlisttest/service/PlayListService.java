@@ -7,6 +7,7 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import list.playlisttest.domain.PlSong;
 import list.playlisttest.domain.PlayList;
 import list.playlisttest.repository.PlayListRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,5 +32,9 @@ public class PlayListService {
 	public PlayList findOne(Long plId) {
 		return playListRepository.findById(plId)
 				.orElseThrow(EntityNotFoundException::new);
+	}
+	
+	public List<PlayList> findPlList(String user, String plTitle){
+		return playListRepository.findPlList(user, plTitle);
 	}
 }
