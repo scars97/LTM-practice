@@ -26,8 +26,9 @@
 
 </body>
 <script th:inline="javascript">
-/*<![CDATA[*/
+
 	function input(plId) {
+	
 		var form = document.createElement("form");
 		form.setAttribute("method", "post");
 		form.setAttribute("action", "/inputsong");
@@ -37,20 +38,20 @@
         hiddenField.setAttribute("value", plId);
         form.appendChild(hiddenField);
         var hiddenField2 = document.createElement("input");
-        hiddenField.setAttribute("type", "hidden");
-        hiddenField.setAttribute("name", "title");
-        hiddenField.setAttribute("value", /*[[${title}]]*/);
+        hiddenField2.setAttribute("type", "hidden");
+        hiddenField2.setAttribute("name", "title");
+        hiddenField2.setAttribute("value", songTitle);
         form.appendChild(hiddenField2);
         var hiddenField3 = document.createElement("input");
-        hiddenField.setAttribute("type", "hidden");
-        hiddenField.setAttribute("name", "singer");
-        hiddenField.setAttribute("value", /*[[${singer}]]*/);
+        hiddenField3.setAttribute("type", "hidden");
+        hiddenField3.setAttribute("name", "singer");
+        hiddenField3.setAttribute("value", singerName);
         form.appendChild(hiddenField3);
 		
 		document.body.appendChild(form);
 		form.submit();
 	}
-/*]]>*/
+
 </script>
 
 </html>

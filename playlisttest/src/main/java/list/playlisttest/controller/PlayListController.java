@@ -135,6 +135,6 @@ public class PlayListController {
 			
 		plSongService.plSong(plId, songTitle, singer);//담은 노래의 id
 
-		return "SongList";
+		return "redirect:/song";
 	}
 }
