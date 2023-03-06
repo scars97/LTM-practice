@@ -33,4 +33,8 @@ public interface PlayListRepository extends JpaRepository<PlayList, Long> {
 
 	@Query("select P from PlayList P where P.title like %:kw%")
 	Page<PlayList> findByKeyword(@Param("kw") String kw, Pageable pageable);
+	
+	//노래 넣을때 회원 id를 가진 플레이리스트 목록 조회
+	@Query(value = "select p.title from PlayList p where p.memberId = :id",nativeQuery=true)
+	List<PlayList> findMemberPlayList(@Param("id") Long memberId);
 }

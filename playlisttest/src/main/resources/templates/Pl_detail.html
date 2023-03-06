@@ -19,8 +19,8 @@
 		<hr>
 		
 		<a th:each="Song : ${song22}">
-		<img th:src="@{/img/album/} + ${Song.thumbnail}" />
-		<a th:text="${Song.songTitle}"></a> / 
+		<!-- <img th:src="@{/img/album/} + ${Song.thumbnail}" /> -->
+		<a th:text="${Song.songTitle}"></a> /
 		<a th:text="${Song.singer}"></a>
 		</a>
 

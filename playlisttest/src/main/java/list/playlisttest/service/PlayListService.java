@@ -41,9 +41,10 @@ public class PlayListService {
 				.orElseThrow(EntityNotFoundException::new);
 	}
 	
-//	public List<PlayList> findPlList(String user, String plTitle){
-//		return playListRepository.findPlList(user, plTitle);
-//	}
+	//내 플레이리스트 조회 + 노래 넣을 플레이리스트 목록 조회
+	public List<PlayList> findMemberPl(Long memberId){
+		return playListRepository.findMemberPlayList(memberId);
+	}
 	
 	//소현님 코드
 	//전체 플레이리스트

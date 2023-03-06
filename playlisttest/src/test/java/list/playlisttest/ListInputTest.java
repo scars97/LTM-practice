@@ -25,7 +25,7 @@ import list.playlisttest.service.PlSongService;
 
 @SpringBootTest
 @Transactional
-@Rollback(false)
+//@Rollback(false)
 public class ListInputTest {// 회원,플레이리스트,노래 데이터 종합 테스트
 
 	@Autowired

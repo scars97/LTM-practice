@@ -25,7 +25,7 @@
 		<table>
 		        <tr th:each="Playlist, PlaylistStatus : ${paging}">
 		        	<td th:each="Playlist, PlaylistStatus : ${paging}">
-		        		<a th:href="@{|/pl/main/detail/${Playlist.id}|}">
+		        		<a th:href="@{/playlist/{id}/song (id=${Playlist.id})}">
 						<img th:src="@{/img/cover/} + ${Playlist.image}" />
 						<!-- <p th:text="${Playlist.nickname}"></p> -->
 						<p th:text="${Playlist.title}"></p>
@@ -43,11 +43,13 @@
 	                    <span>이전</span>
 	                </a>
 	            </li>
+	            
 				<li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}" 
 				th:if="${page >= paging.number-5 and page <= paging.number+5}"
 				th:classappend="${page == paging.number} ? 'active'" class="page-item">
 				<a th:text="${page}" class="page-link"  href="javascript:void(0)" th:data-page="${page}"></a>
            		</li>
+           		
            		 <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
                 <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">
                     <span>다음</span>
@@ -56,7 +58,7 @@
 			</ul>		
 		
 		<!-- 페이징 끝 -->
-		<form th:action="@{/pl/main}" method="get" id="searchForm">
+		<form th:action="@{/playlist/list}" method="get" id="searchForm">
 	        <input type="hidden" id="kw" name="kw" th:value="${kw}">
 	        <input type="hidden" id="page" name="page" th:value="${paging.number}">
    		</form>

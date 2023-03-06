@@ -16,5 +16,4 @@ public interface PlSongRepository extends JpaRepository<PlSong,Long>{
 	public List<PlSong> findSongList(@Param(value = "plId") Long plId);
 	
 	
-	
 }
