@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>PL DETAIL</title>
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/playlist.css}">
+</head>
+<body>
+플레이리스트 상세화면<br>
+
+
+		<a th:each="Playlist : ${playList22}">
+		<img th:src="@{/img/cover/} + ${Playlist.image}" />
+		<a th:text="${Playlist.title}"></a>
+		<a th:text="${Playlist.discription}"></a>
+		<a th:text="${Playlist.id}"></a>
+		</a>
+		<hr>
+		
+		<a th:each="Song : ${song22}">
+		<img th:src="@{/img/album/} + ${Song.thumbnail}" />
+		<a th:text="${Song.songTitle}"></a> / 
+		<a th:text="${Song.singer}"></a>
+		</a>
+
+
+</body>
+</html>

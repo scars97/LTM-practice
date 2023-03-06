@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -43,10 +43,11 @@
 <body>
 
 	<form action="search" method="post">
-		<label for="songinfo">음악검색하기</label> <input type="text" id="songinfo" name="songinfo"
+		<label for="songinfo">음악검색하기</label> 
+		<input type="text" id="songinfo" name="songinfo"
 			class="whatToSearch" placeholder="검색" autocomplete="off"
 			onkeyup="addMusicList()">
-		<button type="submit">검색</button> -->
+		<button type="submit">검색</button>
 	</form>
 
 	<div class="musicListList">

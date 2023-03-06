@@ -1,28 +1,33 @@
 package list.playlisttest.controller;
 
+import org.json.simple.JSONArray;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import list.playlisttest.api.SearchResultApi;
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
 public class SearchController {
 
+	private final SearchResultApi searchResultApi;
+	
 	@GetMapping("/search")
 	public String searchSong() {
 		return "Search";
 	}
 	
 	@PostMapping("/search")
-	public String searchResults(@RequestParam("songinfo") String songInfo) {
+	public String searchResults(@RequestParam("songinfo") String songInfo, Model model) {
 		
-		//입력된 검색어에 대한 api 데이터를 받아서 형식에 맞게 출력해줘야 함.
-		//리포지토리나 서비스 클래스에서 api 호출 로직을 짜고
-		//결과물만 controller에 가져올 수 있게 하기.
-		//api데이터 가져오는 거 공부....
+		JSONArray track = searchResultApi.songResults(songInfo);
+		
+		model.addAttribute("searchWord",songInfo);
+		model.addAttribute("songList",track);
 		return "SongResults";
 	}
 	

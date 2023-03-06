@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+	<h1><input type="hidden" th:text="${searchWord}"> 검색 결과</h1>
+
+	<hr>	
+	
+	<ul th:each="lists : ${songList}">
+		<li th:text="${lists.name}"></li>
+		<li th:text="${lists.artist}"></li>
+	</ul>
 
 </body>
 </html>

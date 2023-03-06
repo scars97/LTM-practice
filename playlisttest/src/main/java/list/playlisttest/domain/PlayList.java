@@ -31,7 +31,9 @@ public class PlayList {
 	private String title;
 	
 	private String discription;
-//	private String image; 
+	
+	@Column(nullable=false)
+	private String image;
 	
 	@OneToOne(mappedBy = "playList",fetch = FetchType.LAZY)
 	private WishList wishList;

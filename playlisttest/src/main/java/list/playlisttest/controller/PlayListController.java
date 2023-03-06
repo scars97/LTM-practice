@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -66,28 +67,63 @@ public class PlayListController {
 	}
 	
 	//전체 플레이리스트 조회
+//	@GetMapping("/playlist/list")
+//	public String showAll(Model model) {
+//		
+//		List<Member> members = memberService.findMembers();
+//		List<PlayList> lists = playListService.findPl();
+//		
+//		model.addAttribute("lists",lists);
+//		model.addAttribute("members",members);
+//		
+//		return "AllPlayList";
+//	}
+	//페이징 처리된 전체 플레이리스트 소현님.ver
 	@GetMapping("/playlist/list")
-	public String showAll(Model model) {
-		
-		List<Member> members = memberService.findMembers();
-		List<PlayList> lists = playListService.findPl();
-		
-		model.addAttribute("lists",lists);
-		model.addAttribute("members",members);
-		
-		return "AllPlayList";
-	}
+    public String list(Model model, @RequestParam(value="page" , defaultValue="0") int page,
+    		 @RequestParam(value = "kw", defaultValue = "") String kw) {
+        //List<PlayList> playList = this.playlistService.getlist(); //레퍼지토리를 바로 불러와서 쓰지않고 서비스를 통해서 사용하도록 작성
+        //model.addAttribute("playList2", playList);
+    	
+    	System.out.println("***************************");
+    	System.out.println(page);
+    	System.out.println(kw);
+    	System.out.println("***************************");
+    	
+    	if("".compareTo(kw) == 0) {
+    		Page<PlayList> paging = this.playListService.getlist(page);
+    		model.addAttribute("paging",paging);
+        	model.addAttribute("kw", kw);
+            return "Pl_main";
+    	}else {
+    		Page<PlayList> paging = this.playListService.getlistkeyword(page,kw);
+    		model.addAttribute("paging",paging);
+        	model.addAttribute("kw", kw);
+            return "Pl_main";
+    	}
+    
+    }
 	
 	//플레이리스트 담긴 노래 조회
+//	@GetMapping("/playlist/{id}/song")
+//	public String plSongForm(@PathVariable("id") Long plId, Model model) {
+//		PlayList playList = playListService.findOne(plId);
+//		List<PlSong> songs = plSongService.findPlSongs(plId);
+//		
+//		model.addAttribute("playlist",playList);
+//		model.addAttribute("songs",songs);
+//		return "PlayListSongs";
+//	}
+	//소현님.ver
 	@GetMapping("/playlist/{id}/song")
-	public String plSongForm(@PathVariable("id") Long plId, Model model) {
-		PlayList playList = playListService.findOne(plId);
-		List<PlSong> songs = plSongService.findPlSongs(plId);
-		
-		model.addAttribute("playlist",playList);
-		model.addAttribute("songs",songs);
-		return "PlayListSongs";
-	}
+    public String pldetail(Model model, @PathVariable("id") Long id) {
+    	PlayList playlist = this.playListService.getPlayList(id);
+    	model.addAttribute("playList22",playlist);
+    	
+    	Song song = this.songService.getSong(id);//리스트로 담는 것도 생각해보기, plsong 연결필요
+    	model.addAttribute("song22",song);
+    	return "Pl_detail";
+    }
 	
 	//플레이리스트 노래 삭제
 	@PostMapping("/playlist/{plId}/song")
