@@ -25,6 +25,7 @@ public class SearchController {
 	public String searchResults(@RequestParam("songinfo") String songInfo, Model model) {
 		
 		JSONArray track = searchResultApi.songResults(songInfo);
+
 		
 		model.addAttribute("searchWord",songInfo);
 		model.addAttribute("songList",track);

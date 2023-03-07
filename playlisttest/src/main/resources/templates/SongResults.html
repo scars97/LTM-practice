@@ -12,19 +12,21 @@
 	<ul th:each="lists : ${songList}">
 		<li th:text="${lists.name}"></li>
 		<li th:text="${lists.artist}"></li>
-		<li><a href="#"
-					th:href="'javascript:input('+${lists.name}+','+${lists.artist}+','+${memberId}+')'">노래넣기</a></li>
+		<li><a href="#" target="_blank" th:onclick="input('[[${lists.name}]]','[[${lists.artist}]]')">노래넣기</a></li>
 						<!-- 회원 id까지 넣어주기 -->
 	</ul>
 
 </body>
 <script>
-    function input(songTitle,singer,id){
+    function input(songTitle,singer){
+    	var option = 
+    		"toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=500, height=500, top=0,left=0";
+
+    	
         window.open(
-            "inputsong?songTitle="+songTitle+"singer="+singer+"id="+id,
-            "input_song_frame",
-            "width=500, height = 500"
-                    
+            "/inputsong?songTitle="+songTitle+"&singer="+singer,
+            "_blank",
+            option             
         );
     }
 </script>
