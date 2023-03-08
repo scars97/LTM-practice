@@ -21,7 +21,7 @@
 			<option th:each="lists : ${playlist}" th:value="${lists.id}"
 				th:text="${lists.title}" />
 		</select> 
-		<input type="hidden" id="songTitle" name="songTitle" th:value=${Title}> 
+		<input type="hidden" id="songTitle" name="songTitle" th:value="${Title}"> 
 		<input type="hidden" id="singer" name="singer" th:value="${singer}">
 	</form>
 	<button id="inputsong">노래 넣기</button>

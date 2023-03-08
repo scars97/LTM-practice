@@ -16,14 +16,32 @@
 		<a th:text="${Playlist.discription}"></a>
 		<a th:text="${Playlist.id}"></a>
 		</a>
+		
 		<hr>
 		
-		<a th:each="Song : ${song22}">
-		<!-- <img th:src="@{/img/album/} + ${Song.thumbnail}" /> -->
-		<a th:text="${Song.songTitle}"></a> /
-		<a th:text="${Song.singer}"></a>
-		</a>
+		<ul th:each="Song : ${song22}">
+			<!-- <img th:src="@{/img/album/} + ${Song.thumbnail}" /> -->
+			<li th:text="${Song.songTitle}"></li>
+			<li th:text="${Song.singer}"></li>
+			<li><a href="#"
+					th:onclick="remove('[[${Song.id}]]','[[${Song.playList.id}]]')">삭제</a></li>
+		</ul>
 
 
 </body>
+<script>
+	function remove(plSongId,plId) {
+		var form = document.createElement("form");
+		form.setAttribute("method", "post");
+		form.setAttribute("action", "/playlist/"+ plId +"/song");
+		var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", "plSongId");
+        hiddenField.setAttribute("value", plSongId);
+        form.appendChild(hiddenField);
+		
+		document.body.appendChild(form);
+		form.submit();
+	}
+</script>
 </html>

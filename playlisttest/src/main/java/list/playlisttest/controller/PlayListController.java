@@ -116,7 +116,7 @@ public class PlayListController {
 //		model.addAttribute("songs",songs);
 //		return "PlayListSongs";
 //	}
-	//소현님.ver
+	//담긴 노래 소현님.ver
 	@GetMapping("/playlist/{id}/song")
     public String pldetail(Model model, @PathVariable("id") Long plId) {
     	PlayList playlist = this.playListService.findOne(plId);
