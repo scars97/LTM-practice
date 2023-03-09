@@ -1,4 +1,4 @@
-package list.playlisttest.controller;
+package list.playlisttest.dto;
 
 import list.playlisttest.domain.Member;
 import lombok.Getter;

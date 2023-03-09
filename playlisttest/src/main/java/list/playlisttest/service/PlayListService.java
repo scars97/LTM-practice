@@ -41,6 +41,38 @@ public class PlayListService {
 				.orElseThrow(EntityNotFoundException::new);
 	}
 	
+	//플레이리스트 업데이트
+	public PlayList updatePl(Long plId, String title, String discription) throws Exception{
+		Optional<PlayList> selectPl= playListRepository.findById(plId);
+		
+		PlayList updatePlayList;
+		if(selectPl.isPresent()) {
+			PlayList playList = selectPl.get();
+			
+			playList.setTitle(title);
+			playList.setDiscription(discription);
+			
+			updatePlayList = playListRepository.save(playList);
+		}else {
+			throw new Exception();
+		}
+		
+		return updatePlayList;
+	}
+	
+	//플레이리스트 삭제
+	public void deletePl(Long plId) throws Exception{
+		Optional<PlayList> selectPl = playListRepository.findById(plId);
+		
+		if(selectPl.isPresent()) {
+			PlayList playList = selectPl.get();
+			
+			playListRepository.delete(playList);
+		}else {
+			throw new Exception();
+		}
+	}
+	
 	//내 플레이리스트 조회 + 노래 넣을 플레이리스트 목록 조회
 	public List<PlayList> findMemberPl(Long memberId){
 		return playListRepository.findMemberPlayList(memberId);

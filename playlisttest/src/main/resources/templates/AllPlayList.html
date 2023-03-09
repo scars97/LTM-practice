@@ -20,9 +20,10 @@
 				<td th:text="${list.title}"></td>
 				<td th:text="${list.discription}"></td>
 				<td></td>
-				<td><a href="#" th:href="@{/playlist/{id}/song (id=${list.id})}"
-						 role="button">노래 보기</a></td>
-				
+				<td><a href="#" th:href="@{/playlist/{id}/update (id=${list.id})}"
+						 role="button">수정하기</a></td>
+				<td><a href="#" th:onclick="remove('[[${list.id}]]')"
+						 role="button">삭제하기</a></td>			
 			</tr>
 		</tbody>
 		
@@ -30,4 +31,19 @@
 	</table>
 
 </body>
+<script>
+	function remove(plId) {
+		var form = document.createElement("form");
+		form.setAttribute("method", "post");
+		form.setAttribute("action", "/playlist/delete");
+		var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", "plId");
+        hiddenField.setAttribute("value", plId);
+        form.appendChild(hiddenField);
+		
+		document.body.appendChild(form);
+		form.submit();
+	}
+</script>
 </html>

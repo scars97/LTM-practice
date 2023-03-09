@@ -20,6 +20,7 @@ import list.playlisttest.domain.Member;
 import list.playlisttest.domain.PlSong;
 import list.playlisttest.domain.PlayList;
 import list.playlisttest.domain.Song;
+import list.playlisttest.dto.PlayListForm;
 import list.playlisttest.repository.InputSong;
 import list.playlisttest.repository.PlSongRepository;
 import list.playlisttest.service.MemberService;
@@ -36,7 +37,6 @@ public class PlayListController {
 	private final PlSongService plSongService;
 	private final MemberService memberService;
 	private final PlSongRepository plSongRepository;
-	private final SongService songService;
 	
 	//플레이리스트 만들기
 	@GetMapping("/playlist/new")
@@ -68,18 +68,44 @@ public class PlayListController {
 		
 	}
 	
-//	//전체 플레이리스트 조회
-//	@GetMapping("/playlist/list")
-//	public String showAll(Model model) {
-//		
-//		List<Member> members = memberService.findMembers();
-//		List<PlayList> lists = playListService.findPl();
-//		
-//		model.addAttribute("lists",lists);
-//		model.addAttribute("members",members);
-//		
-//		return "AllPlayList";
-//	}
+	//업데이트할 리스트 목록
+	@GetMapping("/playlist/updatelist")
+	public String showAll(Model model) {
+		
+		List<Member> members = memberService.findMembers();
+		List<PlayList> lists = playListService.findPl();
+		
+		model.addAttribute("lists",lists);
+		model.addAttribute("members",members);
+		
+		return "AllPlayList";
+	}
+	//플레이리스트 업데이트
+	@GetMapping("/playlist/{id}/update")
+	public String updatePl(@PathVariable("id") Long plId, Model model) {
+		PlayList selectOne = playListService.findOne(plId);
+
+		model.addAttribute("listInfo",selectOne);
+		return "UpdatePlayList";
+	}
+		
+	@PostMapping("/playlist/update")
+	public String updateInfo(@RequestParam("id") Long plId, 
+							 @RequestParam("title") String title, 
+							 @RequestParam("discription") String discription) throws Exception{
+		playListService.updatePl(plId, title, discription);
+	
+		return "redirect:/";
+	}
+	
+	//플레이리스트 삭제
+	@PostMapping("/playlist/delete")
+	public String deletePl(@RequestParam("plId") Long plId) throws Exception{
+		playListService.deletePl(plId);
+		return "redirect:/";
+	}
+	
+	
 	//페이징 처리된 전체 플레이리스트 소현님.ver
 	@GetMapping("/playlist/list")
     public String list(Model model, @RequestParam(value="page" , defaultValue="0") int page,
@@ -106,19 +132,9 @@ public class PlayListController {
     
     }
 	
-	//플레이리스트 담긴 노래 조회
-//	@GetMapping("/playlist/{id}/song")
-//	public String plSongForm(@PathVariable("id") Long plId, Model model) {
-//		PlayList playList = playListService.findOne(plId);
-//		List<PlSong> songs = plSongService.findPlSongs(plId);
-//		
-//		model.addAttribute("playlist",playList);
-//		model.addAttribute("songs",songs);
-//		return "PlayListSongs";
-//	}
 	//담긴 노래 소현님.ver
 	@GetMapping("/playlist/{id}/song")
-    public String pldetail(Model model, @PathVariable("id") Long plId) {
+    public String plDetail(Model model, @PathVariable("id") Long plId) {
     	PlayList playlist = this.playListService.findOne(plId);
     	model.addAttribute("playList22",playlist);
     	
