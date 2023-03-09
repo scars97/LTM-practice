@@ -69,7 +69,7 @@ public class PlayListController {
 	}
 	
 	//업데이트할 리스트 목록
-	@GetMapping("/playlist/updatelist")
+	@GetMapping("/playlist/mylist")
 	public String showAll(Model model) {
 		
 		List<Member> members = memberService.findMembers();
@@ -78,7 +78,7 @@ public class PlayListController {
 		model.addAttribute("lists",lists);
 		model.addAttribute("members",members);
 		
-		return "AllPlayList";
+		return "MyPlayList";
 	}
 	//플레이리스트 업데이트
 	@GetMapping("/playlist/{id}/update")
@@ -187,33 +187,4 @@ public class PlayListController {
 		return "redirect:/search";
 	}
 	
-	
-//	@GetMapping("/inputsong/{songtitle}/{singer}")
-//	public String inputSongDetail(@PathVariable("songtitle") String songTitle,
-//								  @PathVariable("singer") String singer,
-//								  Model model) {
-//		//회원 id와 연결된 플레이리스트 찾아오기 - 쿼리문 필요
-//		//'리스트에 담기'했을 때, 그 회원의 플레이리스트들을 가져와야 함.
-//		//List<PlayList> memberPl = playListService.findMemberPl(회원id);
-//		//model.addattribute("memberPl",memberPl);
-//		List<PlayList> lists = playListService.findPl();
-//		
-//		
-//		model.addAttribute("lists",lists); //회원의 플레이리스트 출력
-//		model.addAttribute("title",songTitle);
-//		model.addAttribute("singer",singer);
-//		return "InputSong";
-//		
-//	}
-//	
-//	
-//	@PostMapping("/inputsong")
-//	public String inputSong(@RequestParam("plId") Long plId,
-//							@RequestParam("title") String songTitle,
-//							@RequestParam("singer") String singer) {
-//			
-//		plSongService.plSong(plId, songTitle, singer);//담은 노래의 id
-//
-//		return "redirect:/song";
-//	}
 }
