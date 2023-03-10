@@ -57,11 +57,12 @@ public class SearchResultApi {
 			rd.close();
 			conn.disconnect();
 			
-			
+
 			//문자열 형태의 JSON을 파싱하기 위한 JSONParser 객체 생성.
 			JSONParser parser = new JSONParser();
 			//문자열을 JSON 형태로 JSONObject 객체에 저장
 			JSONObject obj = (JSONObject) parser.parse(sb.toString());
+			
 			//필요한 리스트 데이터 부분만 가져와 JSONArray로 저장
 			JSONObject results = (JSONObject) obj.get("results");
 			JSONObject trackMatches = (JSONObject) results.get("trackmatches");
@@ -69,18 +70,34 @@ public class SearchResultApi {
 			JSONArray track = (JSONArray) trackMatches.get("track");
 			return track;
 //			String songTitle = "";
-//			String singer = "";
+//			String singer = "";	
+//			String text = "";
+//			String size = "";
 //			
 //			for (int i = 0; i < 5; i++) {
 //				JSONObject trackName = (JSONObject) track.get(i);
-//				songTitle += trackName.get("name");
+//				songTitle = (String) trackName.get("name");
 //				
 //				JSONObject trackArtist = (JSONObject) track.get(i);
-//				singer += trackArtist.get("artist");	
+//				singer = (String) trackArtist.get("artist");
+//				
+//				//image파트
+//				JSONObject image = (JSONObject) track.get(i);
+//				//image 안의 요소 꺼내기
+//				JSONArray imageInfo = (JSONArray) image.get("image");
+//				
+//				//사진 크기 small
+//				JSONObject imageText = (JSONObject) imageInfo.get(0);
+//				text = (String) imageText.get("#text");
+//				JSONObject imageSize = (JSONObject) imageInfo.get(0);
+//				size = (String) imageSize.get("size");
+//				
 //			
 //				System.out.println("제목: " + songTitle + "\n" +
-//								   "가수: " + singer);	
-//			}		
+//								   "가수: " + singer + "\n" +
+//								   "사진주소: " + text + "\n" +
+//								   "사진크기: " + size + "\n");	
+//			}	
 			
 		} catch (Exception e) {
 				// TODO Auto-generated catch block

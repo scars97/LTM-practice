@@ -64,19 +64,37 @@ public class ApiTest {
 			
 			JSONArray track = (JSONArray) trackMatches.get("track");
 			
+			
 			String songTitle = "";
-			String singer = "";
+			String singer = "";	
+			String text = "";
+			String size = "";
 			
 			for (int i = 0; i < 5; i++) {
 				JSONObject trackName = (JSONObject) track.get(i);
 				songTitle = (String) trackName.get("name");
 				
 				JSONObject trackArtist = (JSONObject) track.get(i);
-				singer = (String) trackArtist.get("artist");	
+				singer = (String) trackArtist.get("artist");
+				
+				//image파트
+				JSONObject image = (JSONObject) track.get(i);
+				//image 안의 요소 꺼내기
+				JSONArray imageInfo = (JSONArray) image.get("image");
+				
+				//사진 크기 small
+				JSONObject imageText = (JSONObject) imageInfo.get(0);
+				text = (String) imageText.get("#text");
+				JSONObject imageSize = (JSONObject) imageInfo.get(0);
+				size = (String) imageSize.get("size");
+				
 			
 				System.out.println("제목: " + songTitle + "\n" +
-								   "가수: " + singer);	
-			}		
+								   "가수: " + singer + "\n" +
+								   "사진주소: " + text + "\n" +
+								   "사진크기: " + size + "\n");	
+			}
+					
 			
 		} catch (Exception e) {
 				// TODO Auto-generated catch block

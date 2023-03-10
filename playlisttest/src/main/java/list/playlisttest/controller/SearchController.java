@@ -23,7 +23,7 @@ public class SearchController {
 	
 	@PostMapping("/search")
 	public String searchResults(@RequestParam("songinfo") String songInfo, Model model) {
-		
+		System.out.println("받은 값: " + songInfo);
 		JSONArray track = searchResultApi.songResults(songInfo);
 
 		
