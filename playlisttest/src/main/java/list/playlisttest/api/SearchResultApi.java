@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -21,10 +22,13 @@ public class SearchResultApi {
 		//인증키
 		String apiKey = "e63d38bc9de5863a4bbdfa74a087ea38";
 		
+		String encodeSongInfo = "";
+		
 		try {
+			encodeSongInfo = URLEncoder.encode(songInfo,"UTF-8");
 			//url 객체 생성
 			URL url = new URL("http://ws.audioscrobbler.com/2.0/?method=track.search&track=" 
-				+ songInfo + "&api_key=" + apiKey + "&format=json");
+				+ encodeSongInfo + "&api_key=" + apiKey + "&format=json");
 			
 			//요청하고자 하는 url과 통신하기 위한 connection 객체 생성
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import list.playlisttest.api.SongImageApi;
 import list.playlisttest.domain.Member;
 import list.playlisttest.domain.PlSong;
 import list.playlisttest.domain.PlayList;
@@ -37,6 +38,7 @@ public class PlayListController {
 	private final PlSongService plSongService;
 	private final MemberService memberService;
 	private final PlSongRepository plSongRepository;
+	private final SongImageApi songImageApi;
 	
 	//플레이리스트 만들기
 	@GetMapping("/playlist/new")
@@ -182,7 +184,11 @@ public class PlayListController {
 							@RequestParam("songTitle") String songTitle,
 							@RequestParam("singer") String singer) {
 			
-		plSongService.plSong(plId, songTitle, singer);//담은 노래의 id
+		//노래제목,가수 파라미터 받아서 그 노래에 대한 이미지 가져오는 코드..
+		//plsong에 이미지 컬럼을 넣어야하나..?
+		String songImage = songImageApi.getImage(songTitle, singer);
+		
+		plSongService.plSong(plId, songTitle, singer, songImage);//담은 노래의 id
 
 		return "redirect:/search";
 	}

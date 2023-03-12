@@ -32,7 +32,6 @@ public class PlayList {
 	
 	private String discription;
 	
-	@Column
 	private String image;
 	
 	@OneToOne(mappedBy = "playList",fetch = FetchType.LAZY)

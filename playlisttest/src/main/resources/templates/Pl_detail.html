@@ -23,6 +23,7 @@
 			<!-- <img th:src="@{/img/album/} + ${Song.thumbnail}" /> -->
 			<li th:text="${Song.songTitle}"></li>
 			<li th:text="${Song.singer}"></li>
+			<li><img th:src="${Song.image}"></li>
 			<li><a href="#"
 					th:onclick="remove('[[${Song.id}]]','[[${Song.playList.id}]]')">삭제</a></li>
 		</ul>

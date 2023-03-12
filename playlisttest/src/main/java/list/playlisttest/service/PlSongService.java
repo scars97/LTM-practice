@@ -25,17 +25,16 @@ import lombok.RequiredArgsConstructor;
 public class PlSongService {
 
 	private final PlayListRepository playListRepository;
-	private final SongRepository songRepository; 
 	private final PlSongRepository plSongRepository;
 	
 	@Transactional
-	public PlSong plSong(Long plId,String songTitle,String singer) {
+	public PlSong plSong(Long plId,String songTitle,String singer, String image) {
 		//엔티티 조회
 		PlayList playList = playListRepository.findById(plId)
 				.orElseThrow(EntityNotFoundException::new);
 
 		//플레이리스트를 연결해주는 노래 저장 공간 생성
-		PlSong plSong = PlSong.createPlSong(playList,songTitle,singer);
+		PlSong plSong = PlSong.createPlSong(playList,songTitle,singer,image);
 		
 		//저장
 		playList.addPlSongs(plSong);
