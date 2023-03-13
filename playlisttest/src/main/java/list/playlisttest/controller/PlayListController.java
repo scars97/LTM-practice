@@ -122,6 +122,7 @@ public class PlayListController {
     	
     	if("".compareTo(kw) == 0) {
     		Page<PlayList> paging = this.playListService.getlist(page);
+    		
     		model.addAttribute("paging",paging);
         	model.addAttribute("kw", kw);
             return "Pl_main";

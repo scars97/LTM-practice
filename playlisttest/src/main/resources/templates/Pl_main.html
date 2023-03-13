@@ -27,6 +27,7 @@
 		        	<td th:each="Playlist, PlaylistStatus : ${paging}">
 		        		<a th:href="@{/playlist/{id}/song (id=${Playlist.id})}">
 						<img th:src="@{/img/cover/} + ${Playlist.image}" />
+					
 						<!-- <p th:text="${Playlist.nickname}"></p> -->
 						<p th:text="${Playlist.title}"></p>
 						</a>
@@ -36,6 +37,9 @@
 		        </tr>
 		</table>
 		
+<!-- 		<div th:if="${PlayList.id == Plsong.playlist.id}">
+			<img th:src="${Plsong.image[0]}"/>
+		</div> -->
 		
 		<!-- 페이징 처리 -->
 		<div th:if="${!paging.isEmpty()}">

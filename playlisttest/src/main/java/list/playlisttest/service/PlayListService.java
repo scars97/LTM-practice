@@ -103,24 +103,4 @@ public class PlayListService {
 		}
 	}
 	
-//	private Specification<PlayList> search(String kw) {
-//  return new Specification<>() {
-//      private static final long serialVersionUID = 1L;
-//      @Override
-//      public Predicate toPredicate(Root<PlayList> p, CriteriaQuery<?> query, CriteriaBuilder cb) {
-//      	//Root p - PlayList의 객체 
-//      	
-//          query.distinct(true);  // 중복을 제거 
-//          //Join<Question, SiteUser> u1 = q.join("author", JoinType.LEFT);
-//          //Join<Question, Answer> a = q.join("answerList", JoinType.LEFT);
-//          Join<PlayList, Member> p1 = p.join("id",JoinType.INNER);
-//          return cb.or(cb.like(p1.get("id"), "%" + kw + "%")); 
-//          		//cb.like(p.get("nickname"), "%" + kw + "%"));
-//          		//cb.like(p.get("discription"), "%" + kw + "%"));   
-//                 //cb.like(u1.get("username"), "%" + kw + "%"),   
-//                 //cb.like(a.get("content"), "%" + kw + "%"),       
-//                  //cb.like(u2.get("username"), "%" + kw + "%"));   
-//      }
-//  };
-//}
 }

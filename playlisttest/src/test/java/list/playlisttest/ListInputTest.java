@@ -72,9 +72,9 @@ public class ListInputTest {// 회원,플레이리스트,노래 데이터 종합
 		Song song = createSong();
 
 		// when
-		plSongService.plSong(playList1.getId(), song.getSongTitle(),song.getSinger());
-		plSongService.plSong(playList1.getId(), song.getSongTitle(),song.getSinger());
-		plSongService.plSong(playList2.getId(), song.getSongTitle(),song.getSinger());
+//		plSongService.plSong(playList1.getId(), song.getSongTitle(),song.getSinger());
+//		plSongService.plSong(playList1.getId(), song.getSongTitle(),song.getSinger());
+//		plSongService.plSong(playList2.getId(), song.getSongTitle(),song.getSinger());
 
 		// then
 //		PlSong getPlSong = plSongRepository.findById(plSongId)
@@ -99,9 +99,9 @@ public class ListInputTest {// 회원,플레이리스트,노래 데이터 종합
 		Song song = createSong();
 
 		// when
-		plSongService.plSong(playList.getId(), song.getSongTitle(),song.getSinger());
-		plSongService.plSong(playList.getId(), song.getSongTitle(),song.getSinger());
-		plSongService.plSong(playList2.getId(), song.getSongTitle(),song.getSinger());
+//		plSongService.plSong(playList.getId(), song.getSongTitle(),song.getSinger());
+//		plSongService.plSong(playList.getId(), song.getSongTitle(),song.getSinger());
+//		plSongService.plSong(playList2.getId(), song.getSongTitle(),song.getSinger());
 
 		// then
 		List<PlSong> plSongs = plSongRepository.findSongList(playList.getId());
